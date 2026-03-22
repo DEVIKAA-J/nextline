@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Nextline Media</title>
+  <meta name="description" content="Nextline Media is a student-driven digital publication focused on sharing ideas, stories, and perspectives that matter in today's world." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .about-hero {
+      padding: 80px 0 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-hero__inner {
+      max-width: 760px;
+    }
+    .about-hero__eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .about-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .about-hero__title em { font-style: italic; color: var(--accent); }
+    .about-hero__lead {
+      font-size: 1.15rem;
+      color: var(--mid);
+      line-height: 1.75;
+      max-width: 620px;
+    }
+
+    .about-body {
+      padding: 72px 0;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      margin-bottom: 72px;
+    }
+    .about-section__label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .about-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+    .about-section p {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    /* Values */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 72px;
+    }
+    .value-card {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .value-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .value-card__icon {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+    }
+    .value-card__title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .value-card__text {
+      font-size: 0.83rem;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+
+    /* Topics */
+    .topics-strip {
+      background: var(--black);
+      color: #fff;
+      padding: 56px 0;
+      margin-bottom: 72px;
+    }
+    .topics-strip h2 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    .topics-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .topic-pill {
+      padding: 10px 22px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .topic-pill:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Stats */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-bottom: 72px;
+    }
+    .stat-block {
+      background: var(--bg-off);
+      padding: 36px 24px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .stat-block__num {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-block__label {
+      font-size: 0.75rem;
+      color: var(--mid);
+      font-weight: 500;
+    }
+
+    /* CTA */
+    .about-cta {
+      background: var(--bg-off);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 56px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .about-cta h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .about-cta p {
+      font-size: 0.9rem;
+      color: var(--mid);
+    }
+    .about-cta__btns {
+      display: flex;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+      .about-cta { flex-direction: column; align-items: flex-start; padding: 36px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">NEXT<span>LINE</span></a>
+      <div class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="#">Latest</a>
+        <a href="#">Politics</a>
+        <a href="#">History</a>
+        <a href="#">Voices</a>
+        <a href="submit.html" class="nav__submit">Submit</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <div class="container">
+      <div class="about-hero__inner fade-in">
+        <div class="about-hero__eyebrow">About Nextline Media</div>
+        <h1 class="about-hero__title">A Space Where<br /><em>Voices Are Heard</em></h1>
+        <p class="about-hero__lead">
+          Nextline Media is a student-driven digital publication focused on sharing ideas, stories, and perspectives that matter in today's world. Founded in 2026 and based in India — with a vision to grow as a global platform for emerging voices.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="about-body">
+    <div class="container">
+
+      <!-- Who we are / Who it's for -->
+      <div class="about-grid">
+        <div class="about-section fade-in">
+          <div class="about-section__label">Who We Are</div>
+          <h2>Student-driven. Independently minded.</h2>
+          <p>
+            Nextline Media was born from a simple belief — that young people have important things to say, and deserve a platform built for them. We are not affiliated with any institution, party, or corporation. Our only allegiance is to honest, curious writing.
+          </p>
+          <p>
+            Every article on Nextline is written, edited, and published by people who care about ideas. We started in 2026 with a small team and a big conviction: that student journalism matters.
+          </p>
+        </div>
+        <div class="about-section fade-in" data-delay="100">
+          <div class="about-section__label">Who It's For</div>
+          <h2>Built for students, open to everyone.</h2>
+          <p>
+            Nextline is built for students, young writers, and anyone with a perspective — a space where voices can be expressed, explored, and heard.
+          </p>
+          <p>
+            Whether you're a first-time writer or an experienced contributor, whether you want to read or write — Nextline is for you. No gatekeeping. No prerequisites. Just good writing and honest ideas.
+          </p>
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="section-header fade-in">
+        <h2>What We Stand For</h2>
+      </div>
+      <div class="values-grid" style="margin-top:32px;">
+        <div class="value-card fade-in">
+          <div class="value-card__icon">✍️</div>
+          <div class="value-card__title">Honest Writing</div>
+          <p class="value-card__text">We publish pieces that are grounded in fact, acknowledge complexity, and don't pretend the world is simpler than it is.</p>
+        </div>
+        <div class="value-card fade-in" data-delay="80">
+          <div class="value-card__icon">🌍</div>
+          <div class="value-card__title">Diverse Perspectives</div>
+          <p class="value-card__text">India and beyond. We actively seek out voices from different regions, backgrounds, disciplines, and points of view.</p>
+        </div>
+        <div class="value-card fade-in" data-delay="160">
+          <div class="value-card__icon">🔓</div>
+          <div class="value-card__title">Open Access</div>
+          <p class="value-card__text">All content on Nextline is free to read, forever. Knowledge and perspective shouldn't sit behind a paywall.</p>
+        </div>
+        <div class="value-card fade-in">
+          <div class="value-card__icon">🎓</div>
+          <div class="value-card__title">Student-First</div>
+          <p class="value-card__text">We prioritise student contributors and treat every submission seriously, regardless of where you study or how much you've published.</p>
+        </div>
+        <div class="value-card fade-in" data-delay="80">
+          <div class="value-card__icon">⚖️</div>
+          <div class="value-card__title">Editorial Independence</div>
+          <p class="value-card__text">No sponsors, no political affiliations, no advertiser pressure. Our editorial decisions are made on merit alone.</p>
+        </div>
+        <div class="value-card fade-in" data-delay="160">
+          <div class="value-card__icon">🌱</div>
+          <div class="value-card__title">Built to Grow</div>
+          <p class="value-card__text">We started in India with a global vision. Every contributor, every reader, every share helps Nextline grow into what it can become.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Topics -->
+    <div class="topics-strip">
+      <div class="container">
+        <h2>What We Cover</h2>
+        <div class="topics-list">
+          <span class="topic-pill">Current Affairs</span>
+          <span class="topic-pill">Politics</span>
+          <span class="topic-pill">History</span>
+          <span class="topic-pill">Society &amp; Culture</span>
+          <span class="topic-pill">Opinions</span>
+          <span class="topic-pill">Personal Perspectives</span>
+          <span class="topic-pill">Student Life</span>
+          <span class="topic-pill">Global Issues</span>
+          <span class="topic-pill">Science &amp; Technology</span>
+          <span class="topic-pill">Arts &amp; Literature</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Stats -->
+      <div class="stats-strip fade-in">
+        <div class="stat-block">
+          <div class="stat-block__num">2026</div>
+          <div class="stat-block__label">Year Founded</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-block__num">🇮🇳</div>
+          <div class="stat-block__label">Based in India</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-block__num">∞</div>
+          <div class="stat-block__label">Free to Read, Always</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-block__num">You</div>
+          <div class="stat-block__label">Can Contribute</div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="about-cta fade-in">
+        <div>
+          <h3>Want to write for Nextline?</h3>
+          <p>We review every submission personally. No experience needed — just original thought and honest writing.</p>
+        </div>
+        <div class="about-cta__btns">
+          <a href="submit.html" class="hero__cta">Submit an Article <span class="hero__cta-arrow">→</span></a>
+          <a href="mailto:nextline.publications@gmail.com" class="btn-submit" style="background:#fff;color:#0a0a0a;border:1px solid #e8e8e8;padding:13px 22px;border-radius:2px;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">Contact Us</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container newsletter__inner">
+      <div class="newsletter__copy">
+        <h3>Stay in the loop</h3>
+        <p>New articles, fresh perspectives. Weekly, no spam.</p>
+      </div>
+      <form class="newsletter__form" novalidate>
+        <input type="email" class="newsletter__input" placeholder="your@email.com" />
+        <button type="submit" class="newsletter__btn">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">NEXT<span>LINE</span></div>
+          <p class="footer__tagline">A student-driven digital publication sharing ideas, stories, and perspectives that matter. Founded 2026, based in India.</p>
+          <div class="footer__social">
+            <a href="https://www.linkedin.com/company/nextlinemedia/" target="_blank" aria-label="LinkedIn">in</a>
+            <a href="mailto:nextline.publications@gmail.com" aria-label="Email">✉</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__col-title">Navigate</div>
+          <div class="footer__links">
+            <a href="index.html">Home</a>
+            <a href="#">Latest</a>
+            <a href="#">Politics</a>
+            <a href="#">History</a>
+            <a href="#">Current Affairs</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__col-title">About</div>
+          <div class="footer__links">
+            <a href="about.html">Our Story</a>
+            <a href="about.html#values">What We Stand For</a>
+            <a href="mailto:nextline.publications@gmail.com">Contact Us</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__col-title">Contribute</div>
+          <div class="footer__links">
+            <a href="submit.html">Write for Us</a>
+            <a href="submit.html#guidelines">Guidelines</a>
+            <a href="admin/index.html">Admin ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2026 Nextline Media. All rights reserved.</span>
+        <div style="display:flex;gap:20px;">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
