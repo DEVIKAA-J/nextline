@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nextline — The Student Voice</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">NEXT<span>LINE</span></a>
+      <div class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="#">Latest</a>
+        <a href="#">Politics</a>
+        <a href="#">History</a>
+        <a href="#">Voices</a>
+        <a href="submit.html" class="nav__submit">Submit</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="breaking-bar">
+    <div class="container breaking-bar__inner">
+      <span class="breaking-bar__label">Now Reading</span>
+      <div class="breaking-bar__ticker">
+        <span class="breaking-bar__text" id="tickerText">Welcome to Nextline · The Student Voice · Submit your article today ·</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__grid">
+        <div class="hero__content fade-in" id="heroContent">
+          <div class="hero__eyebrow">
+            <div class="hero__eyebrow-line"></div>
+            <span class="hero__eyebrow-text">Featured Story</span>
+          </div>
+          <div class="skeleton-block" style="height:3.5rem;margin-bottom:18px;border-radius:4px;background:#eee;"></div>
+          <div class="skeleton-block" style="height:1rem;margin-bottom:10px;border-radius:4px;background:#eee;"></div>
+          <div class="skeleton-block" style="height:1rem;width:70%;border-radius:4px;background:#eee;"></div>
+        </div>
+        <div class="hero__image-wrap fade-in" data-delay="120">
+          <div class="hero__image">
+            <img id="heroImg" src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&q=80" alt="Featured" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Articles -->
+  <section class="latest">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2>Latest Articles</h2>
+        <a href="#">View all →</a>
+      </div>
+      <div class="articles-grid" id="articlesGrid">
+        <div class="card"><div style="height:180px;background:#eee;border-radius:3px;margin-bottom:16px;"></div><div style="height:14px;background:#eee;border-radius:2px;margin-bottom:10px;width:60px;"></div><div style="height:18px;background:#eee;border-radius:2px;margin-bottom:6px;"></div><div style="height:18px;background:#eee;border-radius:2px;width:80%;"></div></div>
+        <div class="card"><div style="height:180px;background:#eee;border-radius:3px;margin-bottom:16px;"></div><div style="height:14px;background:#eee;border-radius:2px;margin-bottom:10px;width:60px;"></div><div style="height:18px;background:#eee;border-radius:2px;margin-bottom:6px;"></div><div style="height:18px;background:#eee;border-radius:2px;width:80%;"></div></div>
+        <div class="card"><div style="height:180px;background:#eee;border-radius:3px;margin-bottom:16px;"></div><div style="height:14px;background:#eee;border-radius:2px;margin-bottom:10px;width:60px;"></div><div style="height:18px;background:#eee;border-radius:2px;margin-bottom:6px;"></div><div style="height:18px;background:#eee;border-radius:2px;width:80%;"></div></div>
+      </div>
+      <div id="noArticles" style="display:none;text-align:center;padding:64px 24px;color:#888;">
+        <p style="font-size:1.2rem;font-family:'Playfair Display',serif;margin-bottom:12px;">No articles published yet.</p>
+        <a href="admin/index.html" style="color:#C8102E;font-weight:600;font-size:0.9rem;">Go to Admin → Publish your first article</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="categories">
+    <div class="container">
+      <div class="section-header fade-in"><h2>Browse by Category</h2><a href="#">Explore all →</a></div>
+      <div class="categories-grid fade-in">
+        <div class="category-card">
+          <div class="category-card__bg" style="background-image:url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=80');"></div>
+          <div class="category-card__overlay"></div><div class="category-card__arrow">→</div>
+          <div class="category-card__body"><div class="category-card__name">Politics</div></div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__bg" style="background-image:url('https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&q=80');"></div>
+          <div class="category-card__overlay"></div><div class="category-card__arrow">→</div>
+          <div class="category-card__body"><div class="category-card__name">History</div></div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__bg" style="background-image:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80');"></div>
+          <div class="category-card__overlay"></div><div class="category-card__arrow">→</div>
+          <div class="category-card__body"><div class="category-card__name">Current Affairs</div></div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__bg" style="background-image:url('https://images.unsplash.com/photo-1501127122-f385ca6ddd9d?w=600&q=80');"></div>
+          <div class="category-card__overlay"></div><div class="category-card__arrow">→</div>
+          <div class="category-card__body"><div class="category-card__name">Myths</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container newsletter__inner">
+      <div class="newsletter__copy"><h3>Stay in the loop</h3><p>New articles, fresh perspectives. Weekly, no spam.</p></div>
+      <form class="newsletter__form" novalidate>
+        <input type="email" class="newsletter__input" placeholder="your@email.com" />
+        <button type="submit" class="newsletter__btn">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">NEXT<span>LINE</span></div>
+          <p class="footer__tagline">A student-run digital magazine dedicated to honest, curious, and rigorous journalism.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Twitter">𝕏</a>
+            <a href="#" aria-label="Instagram">ig</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__col-title">Navigate</div>
+          <div class="footer__links">
+            <a href="index.html">Home</a><a href="#">Politics</a><a href="#">History</a><a href="#">Current Affairs</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__col-title">About</div>
+          <div class="footer__links">
+            <a href="#">Our Story</a><a href="#">The Team</a><a href="#">Contact Us</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__col-title">Contribute</div>
+          <div class="footer__links">
+            <a href="submit.html">Write for Us</a><a href="#">Guidelines</a><a href="admin/index.html">Admin ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2025 Nextline Magazine. All rights reserved.</span>
+        <div style="display:flex;gap:20px;"><a href="#">Privacy</a><a href="#">Terms</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="supabase.js"></script>
+  <script src="script.js"></script>
+  <script>
+    function formatDate(iso) {
+      return new Date(iso).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+    }
+    function readTime(text) {
+      return Math.max(1, Math.ceil((text || "").split(" ").length / 200));
+    }
+
+    async function loadHero() {
+      const q = await new SupabaseQuery("articles", sb.headers)
+        .select("*").eq("published", "true")
+        .order("created_at", { ascending: false }).limit(1).get();
+
+      const heroContent = document.getElementById("heroContent");
+      if (!q.data || q.data.length === 0) {
+        heroContent.innerHTML = `
+          <div class="hero__eyebrow"><div class="hero__eyebrow-line"></div><span class="hero__eyebrow-text">Featured Story</span></div>
+          <h1 class="hero__title">Welcome to <em>Nextline</em></h1>
+          <p class="hero__desc">Your student magazine is live. Head to the admin panel to publish your first article.</p>
+          <a href="admin/index.html" class="hero__cta">Go to Admin <span class="hero__cta-arrow">→</span></a>`;
+        return;
+      }
+      const a = q.data[0];
+      if (a.cover_url) document.getElementById("heroImg").src = a.cover_url;
+      heroContent.innerHTML = `
+        <div class="hero__eyebrow"><div class="hero__eyebrow-line"></div><span class="hero__eyebrow-text">Featured Story</span></div>
+        <h1 class="hero__title">${a.title}</h1>
+        <p class="hero__desc">${a.subtitle || a.content.substring(0, 180) + "…"}</p>
+        <div class="hero__meta">
+          <span>${a.author}</span><span class="hero__meta-dot"></span>
+          <span>${a.category}</span><span class="hero__meta-dot"></span>
+          <span>${formatDate(a.created_at)}</span>
+        </div>
+        <a href="article.html?id=${a.id}" class="hero__cta">Read Article <span class="hero__cta-arrow">→</span></a>`;
+    }
+
+    async function loadArticles() {
+      const q = await new SupabaseQuery("articles", sb.headers)
+        .select("*").eq("published", "true")
+        .order("created_at", { ascending: false }).limit(6).get();
+
+      const grid = document.getElementById("articlesGrid");
+      if (!q.data || q.data.length === 0) {
+        grid.style.display = "none";
+        document.getElementById("noArticles").style.display = "block";
+        return;
+      }
+      grid.innerHTML = q.data.map(a => `
+        <a href="article.html?id=${a.id}" class="card fade-in">
+          <div class="card__image">
+            <img src="${a.cover_url || 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=600&q=80'}" alt="${a.title}" loading="lazy" />
+          </div>
+          <span class="tag card__tag">${a.category}</span>
+          <h3 class="card__title">${a.title}</h3>
+          <p class="card__excerpt">${a.subtitle || a.content.substring(0, 120) + "…"}</p>
+          <div class="card__meta">
+            <span>${a.author}</span><span>·</span>
+            <span>${formatDate(a.created_at)}</span><span>·</span>
+            <span>${readTime(a.content)} min read</span>
+          </div>
+        </a>`).join("");
+
+      document.getElementById("tickerText").textContent =
+        q.data.map(a => a.title).join("   ·   ") + "   ·   ";
+      initFadeIn();
+    }
+
+    loadHero();
+    loadArticles();
+  </script>
+</body>
+</html>

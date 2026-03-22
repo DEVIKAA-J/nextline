@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Nextline Admin</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+    body { background: #f4f4f2; font-family: 'DM Sans', sans-serif; }
+
+    /* Sidebar layout */
+    .admin-layout { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      width: 240px;
+      background: #0a0a0a;
+      color: #fff;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 50;
+    }
+
+    .sidebar__logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      padding: 28px 24px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar__logo span { color: #C8102E; }
+    .sidebar__sublabel { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.35); display: block; margin-top: 2px; }
+
+    .sidebar__nav { padding: 16px 0; flex: 1; }
+
+    .sidebar__link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 24px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      transition: all 0.15s;
+      border-left: 3px solid transparent;
+      text-decoration: none;
+    }
+    .sidebar__link:hover { color: #fff; background: rgba(255,255,255,0.04); }
+    .sidebar__link.active { color: #fff; border-left-color: #C8102E; background: rgba(200,16,46,0.08); }
+    .sidebar__link .icon { font-size: 1rem; width: 18px; text-align: center; }
+
+    .sidebar__footer {
+      padding: 16px 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar__footer a { color: rgba(255,255,255,0.4); font-size: 0.72rem; }
+    .sidebar__footer a:hover { color: #fff; }
+
+    /* Main content */
+    .admin-main {
+      margin-left: 240px;
+      flex: 1;
+      padding: 32px;
+      max-width: calc(100vw - 240px);
+    }
+
+    .admin-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .admin-topbar h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: #C8102E;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-secondary {
+      background: #fff;
+      color: #0a0a0a;
+      border: 1px solid #e8e8e8;
+      padding: 8px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-secondary:hover { border-color: #0a0a0a; }
+
+    .btn-danger {
+      background: none;
+      border: 1px solid #e8e8e8;
+      color: #C8102E;
+      padding: 6px 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-danger:hover { background: #C8102E; color: #fff; border-color: #C8102E; }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: #fff;
+      border-radius: 4px;
+      padding: 20px 24px;
+      border: 1px solid #e8e8e8;
+    }
+
+    .stat-card__label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .stat-card__value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .stat-card__sub { font-size: 0.72rem; color: #aaa; margin-top: 4px; }
+
+    /* Tab panels */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid #e8e8e8;
+      margin-bottom: 24px;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #888;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .tab-btn:hover { color: #0a0a0a; }
+    .tab-btn.active { color: #C8102E; border-bottom-color: #C8102E; }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Table */
+    .data-table {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .data-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .data-table th {
+      background: #f9f8f6;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .data-table td {
+      padding: 14px 16px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #f0f0f0;
+      vertical-align: middle;
+    }
+
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #fafafa; }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .status-badge--published { background: #e8f5e9; color: #2e7d32; }
+    .status-badge--draft     { background: #f5f5f5; color: #777; }
+    .status-badge--pending   { background: #fff3e0; color: #e65100; }
+    .status-badge--approved  { background: #e8f5e9; color: #2e7d32; }
+    .status-badge--rejected  { background: #fce4ec; color: #c62828; }
+
+    .table-actions { display: flex; gap: 8px; align-items: center; }
+
+    /* Article form modal */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 32px 16px;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 4px;
+      width: 100%;
+      max-width: 760px;
+      padding: 36px 40px;
+      position: relative;
+    }
+
+    .modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .modal__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .modal__close {
+      width: 32px; height: 32px;
+      border: 1px solid #e8e8e8;
+      border-radius: 2px;
+      background: none;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #555;
+      transition: all 0.15s;
+    }
+    .modal__close:hover { background: #0a0a0a; color: #fff; border-color: #0a0a0a; }
+
+    .modal-form { display: flex; flex-direction: column; gap: 20px; }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      padding-top: 8px;
+      border-top: 1px solid #e8e8e8;
+      margin-top: 8px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 64px 24px;
+      color: #aaa;
+    }
+    .empty-state p { font-size: 0.9rem; margin-bottom: 16px; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0a0a0a;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      z-index: 999;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-left: 4px solid #4caf50; }
+    .toast.error   { border-left: 4px solid #C8102E; }
+
+    /* View submission panel */
+    .submission-detail {
+      background: #f9f8f6;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+      padding: 24px;
+      margin-top: 16px;
+      display: none;
+    }
+    .submission-detail.open { display: block; }
+    .submission-detail pre {
+      white-space: pre-wrap;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #333;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="admin-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      NEXT<span>LINE</span>
+      <span class="sidebar__sublabel">Admin Dashboard</span>
+    </div>
+    <nav class="sidebar__nav">
+      <a class="sidebar__link active" data-tab="articles" onclick="switchTab('articles', this)">
+        <span class="icon">📝</span> Articles
+      </a>
+      <a class="sidebar__link" data-tab="new" onclick="switchTab('new', this)">
+        <span class="icon">✏️</span> Write New Article
+      </a>
+      <a class="sidebar__link" data-tab="submissions" onclick="switchTab('submissions', this)">
+        <span class="icon">📬</span> Submissions
+        <span id="pendingBadge" style="margin-left:auto;background:#C8102E;color:#fff;border-radius:10px;padding:1px 7px;font-size:0.65rem;display:none;"></span>
+      </a>
+      <a class="sidebar__link" data-tab="categories" onclick="switchTab('categories', this)">
+        <span class="icon">🏷️</span> Categories
+      </a>
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:8px 0;" />
+      <a class="sidebar__link" href="../index.html" target="_blank">
+        <span class="icon">🌐</span> View Site
+      </a>
+    </nav>
+    <div class="sidebar__footer">
+      <span>Nextline CMS</span>
+      <a href="#" onclick="logout()">Log out</a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="admin-main">
+
+    <!-- Stats -->
+    <div class="admin-topbar">
+      <h1 id="pageTitle">Articles</h1>
+      <button class="btn-primary" id="topbarBtn" onclick="switchTab('new', document.querySelector('[data-tab=new]'))">+ New Article</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-card__label">Published</div>
+        <div class="stat-card__value" id="statPublished">—</div>
+        <div class="stat-card__sub">articles live</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__label">Drafts</div>
+        <div class="stat-card__value" id="statDrafts">—</div>
+        <div class="stat-card__sub">unpublished</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__label">Submissions</div>
+        <div class="stat-card__value" id="statSubmissions">—</div>
+        <div class="stat-card__sub">total received</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__label">Pending Review</div>
+        <div class="stat-card__value" id="statPending" style="color:#C8102E;">—</div>
+        <div class="stat-card__sub">need attention</div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="articles" onclick="switchTab('articles', this)">Articles</button>
+      <button class="tab-btn" data-tab="new" onclick="switchTab('new', this)">Write New</button>
+      <button class="tab-btn" data-tab="submissions" onclick="switchTab('submissions', this)">Submissions</button>
+      <button class="tab-btn" data-tab="categories" onclick="switchTab('categories', this)">Categories</button>
+    </div>
+
+    <!-- ── Articles Tab ──────────────────── -->
+    <div class="tab-panel active" id="tab-articles">
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="articlesBody">
+            <tr><td colspan="6" style="text-align:center;color:#aaa;padding:40px;">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── Write/Edit Tab ────────────────── -->
+    <div class="tab-panel" id="tab-new">
+      <div style="background:#fff;border:1px solid #e8e8e8;border-radius:4px;padding:32px;">
+        <input type="hidden" id="editId" />
+        <div class="modal-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Article Title <span class="required">*</span></label>
+              <input type="text" id="artTitle" class="form-input" placeholder="Enter a compelling title" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category <span class="required">*</span></label>
+              <select id="artCategory" class="form-select">
+                <option value="">Select…</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Author Name <span class="required">*</span></label>
+              <input type="text" id="artAuthor" class="form-input" placeholder="e.g. Priya Nair" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Cover Image URL</label>
+              <input type="url" id="artCover" class="form-input" placeholder="https://images.unsplash.com/..." />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subtitle / Summary</label>
+            <input type="text" id="artSubtitle" class="form-input" placeholder="One-line description shown on cards and hero" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Content <span class="required">*</span></label>
+            <textarea id="artContent" class="form-textarea" style="min-height:320px;" placeholder="Write your article here.&#10;&#10;Use blank lines between paragraphs.&#10;&#10;Start a line with ## for a heading.&#10;Start a line with > for a blockquote."></textarea>
+            <span class="form-hint">Blank line = new paragraph · ## Heading · &gt; Blockquote</span>
+          </div>
+          <div id="artError" style="display:none;padding:10px 14px;background:#fff0f2;border:1px solid #C8102E;border-radius:2px;color:#C8102E;font-size:0.82rem;"></div>
+          <div class="modal-actions">
+            <button class="btn-primary" onclick="saveArticle(true)">✓ Publish</button>
+            <button class="btn-secondary" onclick="saveArticle(false)">Save as Draft</button>
+            <button class="btn-secondary" onclick="clearArticleForm()" style="margin-left:auto;">Clear Form</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Submissions Tab ───────────────── -->
+    <div class="tab-panel" id="tab-submissions">
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Received</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="submissionsBody">
+            <tr><td colspan="6" style="text-align:center;color:#aaa;padding:40px;">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="submission-detail" id="submissionDetail">
+        <strong id="detailTitle" style="font-family:'Playfair Display',serif;font-size:1.1rem;"></strong>
+        <div style="font-size:0.75rem;color:#888;margin:6px 0 12px;" id="detailMeta"></div>
+        <pre id="detailContent"></pre>
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <button class="btn-primary" id="promoteBtn" onclick="promoteSubmission()">→ Move to Draft</button>
+          <button class="btn-secondary" onclick="document.getElementById('submissionDetail').classList.remove('open')">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Categories Tab ────────────────── -->
+    <div class="tab-panel" id="tab-categories">
+      <div style="display:flex;gap:16px;margin-bottom:24px;">
+        <input type="text" id="newCategory" class="form-input" placeholder="New category name…" style="max-width:300px;" />
+        <button class="btn-primary" onclick="addCategory()">Add Category</button>
+      </div>
+      <div class="data-table">
+        <table>
+          <thead>
+            <tr><th>Category Name</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="categoriesBody">
+            <tr><td colspan="2" style="text-align:center;color:#aaa;padding:40px;">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="../supabase.js"></script>
+<script>
+  // Auth guard
+  if (sessionStorage.getItem("nl_admin") !== "true") {
+    location.href = "index.html";
+  }
+
+  function logout() {
+    sessionStorage.removeItem("nl_admin");
+    location.href = "index.html";
+  }
+
+  // ── Toast ─────────────────────────────
+  function showToast(msg, type = "success") {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.className = `toast ${type} show`;
+    setTimeout(() => t.classList.remove("show"), 3000);
+  }
+
+  // ── Tab switching ─────────────────────
+  function switchTab(name, el) {
+    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+    document.querySelectorAll(".tab-btn, .sidebar__link").forEach(b => b.classList.remove("active"));
+    document.getElementById("tab-" + name).classList.add("active");
+    document.querySelectorAll(`[data-tab="${name}"]`).forEach(b => b.classList.add("active"));
+
+    const titles = { articles: "Articles", new: "Write New Article", submissions: "Submissions", categories: "Categories" };
+    document.getElementById("pageTitle").textContent = titles[name] || name;
+    document.getElementById("topbarBtn").style.display = name === "new" ? "none" : "";
+  }
+
+  // ── Format date ───────────────────────
+  function fmt(iso) {
+    return new Date(iso).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+  }
+
+  // ── Load Stats ────────────────────────
+  async function loadStats() {
+    const [arts, subs] = await Promise.all([
+      new SupabaseQuery("articles", sb.headers).select("id,published").get(),
+      new SupabaseQuery("submissions", sb.headers).select("id,status").get()
+    ]);
+    const articles = arts.data || [];
+    const submissions = subs.data || [];
+    const published = articles.filter(a => a.published).length;
+    const drafts = articles.filter(a => !a.published).length;
+    const pending = submissions.filter(s => s.status === "pending").length;
+
+    document.getElementById("statPublished").textContent = published;
+    document.getElementById("statDrafts").textContent = drafts;
+    document.getElementById("statSubmissions").textContent = submissions.length;
+    document.getElementById("statPending").textContent = pending;
+
+    if (pending > 0) {
+      const badge = document.getElementById("pendingBadge");
+      badge.textContent = pending;
+      badge.style.display = "inline";
+    }
+  }
+
+  // ── Load Articles ─────────────────────
+  async function loadArticles() {
+    const q = await new SupabaseQuery("articles", sb.headers)
+      .select("*").order("created_at", { ascending: false }).get();
+
+    const tbody = document.getElementById("articlesBody");
+    if (!q.data || q.data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><p>No articles yet.</p><button class="btn-primary" onclick="switchTab('new', document.querySelector('[data-tab=new]'))">Write your first article</button></div></td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = q.data.map(a => `
+      <tr>
+        <td style="max-width:260px;"><strong style="font-size:0.88rem;">${a.title}</strong></td>
+        <td>${a.author}</td>
+        <td><span class="tag" style="font-size:0.6rem;">${a.category}</span></td>
+        <td><span class="status-badge status-badge--${a.published ? 'published' : 'draft'}">${a.published ? 'Published' : 'Draft'}</span></td>
+        <td style="color:#888;font-size:0.78rem;">${fmt(a.created_at)}</td>
+        <td>
+          <div class="table-actions">
+            <button class="btn-secondary" onclick="editArticle(${JSON.stringify(a).split('"').join("'")})">Edit</button>
+            <button class="btn-secondary" onclick="togglePublish('${a.id}', ${a.published})">${a.published ? 'Unpublish' : 'Publish'}</button>
+            <button class="btn-danger" onclick="deleteArticle('${a.id}', '${a.title.replace(/'/g,"\\'")}')">Delete</button>
+          </div>
+        </td>
+      </tr>`).join("");
+  }
+
+  // ── Toggle Publish ────────────────────
+  async function togglePublish(id, current) {
+    const q = await new SupabaseQuery("articles", sb.headers)
+      .eq("id", id).update({ published: !current });
+    if (q.error) { showToast("Error updating article", "error"); return; }
+    showToast(!current ? "Article published ✓" : "Article moved to draft");
+    loadArticles(); loadStats();
+  }
+
+  // ── Delete Article ────────────────────
+  async function deleteArticle(id, title) {
+    if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
+    const q = await new SupabaseQuery("articles", sb.headers).eq("id", id).delete();
+    if (q.error) { showToast("Error deleting article", "error"); return; }
+    showToast("Article deleted");
+    loadArticles(); loadStats();
+  }
+
+  // ── Edit Article (populate form) ──────
+  function editArticle(a) {
+    // a is passed as a stringified object with single quotes
+    document.getElementById("editId").value = a.id;
+    document.getElementById("artTitle").value = a.title;
+    document.getElementById("artSubtitle").value = a.subtitle || "";
+    document.getElementById("artAuthor").value = a.author;
+    document.getElementById("artCover").value = a.cover_url || "";
+    document.getElementById("artContent").value = a.content;
+    // Set category after options load
+    setTimeout(() => { document.getElementById("artCategory").value = a.category; }, 100);
+    switchTab("new", document.querySelector("[data-tab=new]"));
+    window.scrollTo(0, 0);
+  }
+
+  // ── Save Article ──────────────────────
+  async function saveArticle(publish) {
+    const title    = document.getElementById("artTitle").value.trim();
+    const category = document.getElementById("artCategory").value;
+    const author   = document.getElementById("artAuthor").value.trim();
+    const content  = document.getElementById("artContent").value.trim();
+    const errBox   = document.getElementById("artError");
+
+    if (!title || !category || !author || !content) {
+      errBox.textContent = "Please fill in Title, Category, Author, and Content.";
+      errBox.style.display = "block";
+      return;
+    }
+    errBox.style.display = "none";
+
+    const payload = {
+      title,
+      subtitle:  document.getElementById("artSubtitle").value.trim(),
+      author,
+      category,
+      cover_url: document.getElementById("artCover").value.trim(),
+      content,
+      published: publish
+    };
+
+    const editId = document.getElementById("editId").value;
+    let q;
+    if (editId) {
+      q = await new SupabaseQuery("articles", sb.headers).eq("id", editId).update(payload);
+    } else {
+      q = await new SupabaseQuery("articles", sb.headers).insert(payload);
+    }
+
+    if (q.error) {
+      errBox.textContent = "Error saving article. Please try again.";
+      errBox.style.display = "block";
+      showToast("Save failed", "error");
+      return;
+    }
+
+    showToast(publish ? "Article published! ✓" : "Draft saved ✓");
+    clearArticleForm();
+    switchTab("articles", document.querySelector("[data-tab=articles]"));
+    loadArticles(); loadStats();
+  }
+
+  function clearArticleForm() {
+    ["editId","artTitle","artSubtitle","artAuthor","artCover","artContent"].forEach(id => {
+      document.getElementById(id).value = "";
+    });
+    document.getElementById("artCategory").value = "";
+    document.getElementById("artError").style.display = "none";
+  }
+
+  // ── Submissions ───────────────────────
+  let currentSubmission = null;
+
+  async function loadSubmissions() {
+    const q = await new SupabaseQuery("submissions", sb.headers)
+      .select("*").order("created_at", { ascending: false }).get();
+
+    const tbody = document.getElementById("submissionsBody");
+    if (!q.data || q.data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#aaa;padding:40px;">No submissions yet.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = q.data.map(s => `
+      <tr>
+        <td style="max-width:220px;"><strong style="font-size:0.85rem;">${s.title}</strong></td>
+        <td>
+          <div style="font-size:0.85rem;">${s.name}</div>
+          <div style="font-size:0.72rem;color:#888;">${s.email}</div>
+        </td>
+        <td><span class="tag" style="font-size:0.6rem;">${s.category}</span></td>
+        <td><span class="status-badge status-badge--${s.status}">${s.status}</span></td>
+        <td style="color:#888;font-size:0.78rem;">${fmt(s.created_at)}</td>
+        <td>
+          <div class="table-actions">
+            <button class="btn-secondary" onclick="viewSubmission(${JSON.stringify(s).split('"').join("'")})">View</button>
+            <button class="btn-danger" onclick="deleteSubmission('${s.id}')">Delete</button>
+          </div>
+        </td>
+      </tr>`).join("");
+  }
+
+  function viewSubmission(s) {
+    currentSubmission = s;
+    document.getElementById("detailTitle").textContent = s.title;
+    document.getElementById("detailMeta").textContent =
+      `By ${s.name} (${s.email}) · ${s.category} · ${fmt(s.created_at)}${s.university ? ' · ' + s.university : ''}`;
+    document.getElementById("detailContent").textContent = s.content;
+    document.getElementById("submissionDetail").classList.add("open");
+    document.getElementById("submissionDetail").scrollIntoView({ behavior: "smooth" });
+  }
+
+  async function promoteSubmission() {
+    if (!currentSubmission) return;
+    // Pre-fill the article form with submission data
+    document.getElementById("artTitle").value    = currentSubmission.title;
+    document.getElementById("artAuthor").value   = currentSubmission.name;
+    document.getElementById("artContent").value  = currentSubmission.content;
+    setTimeout(() => { document.getElementById("artCategory").value = currentSubmission.category; }, 100);
+
+    // Mark submission as approved
+    await new SupabaseQuery("submissions", sb.headers)
+      .eq("id", currentSubmission.id).update({ status: "approved" });
+
+    showToast("Submission moved to editor — review and publish!");
+    document.getElementById("submissionDetail").classList.remove("open");
+    switchTab("new", document.querySelector("[data-tab=new]"));
+    loadSubmissions();
+  }
+
+  async function deleteSubmission(id) {
+    if (!confirm("Delete this submission?")) return;
+    await new SupabaseQuery("submissions", sb.headers).eq("id", id).delete();
+    showToast("Submission deleted");
+    document.getElementById("submissionDetail").classList.remove("open");
+    loadSubmissions(); loadStats();
+  }
+
+  // ── Categories ────────────────────────
+  async function loadCategories() {
+    const q = await new SupabaseQuery("categories", sb.headers)
+      .select("*").order("name").get();
+
+    const tbody = document.getElementById("categoriesBody");
+    const select = document.getElementById("artCategory");
+
+    if (!q.data || q.data.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="2" style="text-align:center;color:#aaa;padding:40px;">No categories yet.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = q.data.map(c => `
+      <tr>
+        <td><strong>${c.name}</strong></td>
+        <td><button class="btn-danger" onclick="deleteCategory('${c.id}', '${c.name}')">Delete</button></td>
+      </tr>`).join("");
+
+    // Populate category selects
+    const options = q.data.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
+    select.innerHTML = `<option value="">Select…</option>${options}`;
+    document.getElementById("artCategory").innerHTML = `<option value="">Select…</option>${options}`;
+  }
+
+  async function addCategory() {
+    const name = document.getElementById("newCategory").value.trim();
+    if (!name) return;
+    const q = await new SupabaseQuery("categories", sb.headers).insert({ name });
+    if (q.error) { showToast("Category already exists or error occurred", "error"); return; }
+    document.getElementById("newCategory").value = "";
+    showToast(`Category "${name}" added`);
+    loadCategories();
+  }
+
+  async function deleteCategory(id, name) {
+    if (!confirm(`Delete category "${name}"?`)) return;
+    await new SupabaseQuery("categories", sb.headers).eq("id", id).delete();
+    showToast(`Category "${name}" deleted`);
+    loadCategories();
+  }
+
+  // ── Init ──────────────────────────────
+  loadStats();
+  loadArticles();
+  loadSubmissions();
+  loadCategories();
+</script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Your Article — Nextline</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="index.html" class="nav__logo">NEXT<span>LINE</span></a>
+      <div class="nav__links">
+        <a href="index.html">Home</a>
+        <a href="#">Latest</a>
+        <a href="#">Politics</a>
+        <a href="#">History</a>
+        <a href="#">Voices</a>
+        <a href="submit.html" class="nav__submit">Submit</a>
+      </div>
+      <button class="nav__toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="submit-page">
+    <div class="container">
+      <div class="submit-page__inner">
+
+        <div>
+          <div class="submit-header fade-in">
+            <div class="submit-header__eyebrow">Write for Nextline</div>
+            <h1>Your Story<br />Belongs Here</h1>
+            <p>Nextline is built on student voices. Submit your piece on politics, history, current affairs, or the myths we've been sold. Our editors review every submission within 7–10 days.</p>
+          </div>
+
+          <form class="submit-form fade-in" id="submitForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="name">Full Name <span class="required">*</span></label>
+                <input type="text" id="name" class="form-input" placeholder="e.g. Priya Nair" autocomplete="name" />
+                <span class="form-error" id="nameError">Please enter your full name.</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" class="form-input" placeholder="you@university.edu" autocomplete="email" />
+                <span class="form-error" id="emailError">Please enter a valid email.</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="title">Article Title <span class="required">*</span></label>
+              <input type="text" id="title" class="form-input" placeholder="e.g. The Silence of History Textbooks" />
+              <span class="form-error" id="titleError">Please enter a title (at least 5 characters).</span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="category">Category <span class="required">*</span></label>
+                <select id="category" class="form-select">
+                  <option value="">Select a category…</option>
+                  <option value="Politics">Politics</option>
+                  <option value="History">History</option>
+                  <option value="Current Affairs">Current Affairs</option>
+                  <option value="Myths">Myths &amp; Misconceptions</option>
+                  <option value="Culture">Culture &amp; Society</option>
+                  <option value="Other">Other</option>
+                </select>
+                <span class="form-error" id="categoryError">Please select a category.</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="university">University / Institution</label>
+                <input type="text" id="university" class="form-input" placeholder="e.g. Delhi University (optional)" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="bio">Short Author Bio</label>
+              <input type="text" id="bio" class="form-input" placeholder="e.g. Final-year History student at JNU" />
+              <span class="form-hint">Will appear at the end of your article if published.</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="content">Article Content <span class="required">*</span></label>
+              <textarea id="content" class="form-textarea" placeholder="Write or paste your full article here. Minimum 100 characters."></textarea>
+              <div style="display:flex;justify-content:space-between;margin-top:4px;">
+                <span class="form-error" id="contentError">Article must be at least 100 characters.</span>
+                <span class="form-hint" id="charCount">0 characters</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="notes">Notes to the Editor</label>
+              <textarea id="notes" class="form-textarea" style="min-height:100px;" placeholder="Any context, sources, or notes (optional)"></textarea>
+            </div>
+
+            <div id="submitError" style="display:none;padding:12px 16px;background:#fff0f2;border:1px solid #C8102E;border-radius:2px;color:#C8102E;font-size:0.85rem;"></div>
+
+            <div class="form-submit">
+              <button type="submit" class="btn-submit" id="submitBtn">
+                Submit Article <span>→</span>
+              </button>
+              <p class="form-privacy">By submitting, you confirm this is original work. We respond within 7–10 days.</p>
+            </div>
+          </form>
+
+          <!-- Success -->
+          <div class="form-success" id="formSuccess">
+            <div class="form-success__icon">✓</div>
+            <h3>Submission Received!</h3>
+            <p>Thank you for submitting to Nextline. Our editorial team will review your piece and get back to you within 7–10 days.</p>
+            <br />
+            <a href="index.html" class="hero__cta" style="display:inline-flex;">Back to Home <span class="hero__cta-arrow">→</span></a>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="submit-sidebar fade-in" data-delay="100">
+          <div class="sidebar-widget">
+            <div class="sidebar-widget__header">Submission Guidelines</div>
+            <div class="sidebar-widget__body">
+              <div class="guidelines-list">
+                <div class="guideline-item"><span class="guideline-item__num">1</span><span>Articles should be 600–1500 words.</span></div>
+                <div class="guideline-item"><span class="guideline-item__num">2</span><span>Original work only — not published elsewhere.</span></div>
+                <div class="guideline-item"><span class="guideline-item__num">3</span><span>Cite your sources. Honesty is non-negotiable.</span></div>
+                <div class="guideline-item"><span class="guideline-item__num">4</span><span>Opinion pieces must acknowledge counterarguments.</span></div>
+                <div class="guideline-item"><span class="guideline-item__num">5</span><span>We may request edits before publication.</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-widget">
+            <div class="sidebar-widget__header">What We're Looking For</div>
+            <div class="sidebar-widget__body">
+              <div class="guidelines-list">
+                <div class="guideline-item"><span class="guideline-item__num" style="background:#0a0a0a;">→</span><span>Stories that challenge the dominant narrative.</span></div>
+                <div class="guideline-item"><span class="guideline-item__num" style="background:#0a0a0a;">→</span><span>Local stories with national stakes.</span></div>
+                <div class="guideline-item"><span class="guideline-item__num" style="background:#0a0a0a;">→</span><span>Historical deep-dives connecting to the present.</span></div>
+                <div class="guideline-item"><span class="guideline-item__num" style="background:#0a0a0a;">→</span><span>Personal essays grounded in research.</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-widget">
+            <div class="sidebar-widget__header">Have a Question?</div>
+            <div class="sidebar-widget__body">
+              <p style="font-size:0.82rem;color:#555;line-height:1.7;">
+                Reach out at<br />
+                <a href="mailto:editors@nextline.pub" style="color:#C8102E;font-weight:600;">editors@nextline.pub</a>
+              </p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">NEXT<span>LINE</span></div>
+          <p class="footer__tagline">A student-run digital magazine dedicated to honest, curious journalism.</p>
+        </div>
+        <div>
+          <div class="footer__col-title">Navigate</div>
+          <div class="footer__links"><a href="index.html">Home</a><a href="#">Politics</a><a href="#">History</a></div>
+        </div>
+        <div>
+          <div class="footer__col-title">About</div>
+          <div class="footer__links"><a href="#">Our Story</a><a href="#">Contact Us</a></div>
+        </div>
+        <div>
+          <div class="footer__col-title">Contribute</div>
+          <div class="footer__links"><a href="submit.html">Write for Us</a><a href="admin/index.html">Admin ↗</a></div>
+        </div>
+      </div>
+      <div class="footer__bottom"><span>© 2025 Nextline Magazine. All rights reserved.</span></div>
+    </div>
+  </footer>
+
+  <script src="supabase.js"></script>
+  <script src="script.js"></script>
+  <script>
+    const fields = {
+      name:     { el: document.getElementById("name"),     err: document.getElementById("nameError"),     rule: v => v.trim().length >= 2 },
+      email:    { el: document.getElementById("email"),    err: document.getElementById("emailError"),    rule: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+      title:    { el: document.getElementById("title"),    err: document.getElementById("titleError"),    rule: v => v.trim().length >= 5 },
+      category: { el: document.getElementById("category"), err: document.getElementById("categoryError"), rule: v => v !== "" },
+      content:  { el: document.getElementById("content"),  err: document.getElementById("contentError"),  rule: v => v.trim().length >= 100 },
+    };
+
+    Object.values(fields).forEach(({ el, err, rule }) => {
+      el.addEventListener("blur", () => validate(el, err, rule));
+      el.addEventListener("input", () => { if (el.classList.contains("error")) validate(el, err, rule); });
+    });
+
+    // Char counter
+    document.getElementById("content").addEventListener("input", function() {
+      const len = this.value.trim().length;
+      const el = document.getElementById("charCount");
+      el.textContent = `${len} characters${len < 100 ? " (min 100)" : " ✓"}`;
+      el.style.color = len >= 100 ? "#555" : "#C8102E";
+    });
+
+    function validate(el, err, rule) {
+      const ok = rule(el.value);
+      el.classList.toggle("error", !ok);
+      err.classList.toggle("visible", !ok);
+      return ok;
+    }
+
+    document.getElementById("submitForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      let valid = true;
+      Object.values(fields).forEach(({ el, err, rule }) => { if (!validate(el, err, rule)) valid = false; });
+      if (!valid) return;
+
+      const btn = document.getElementById("submitBtn");
+      const errBox = document.getElementById("submitError");
+      btn.disabled = true;
+      btn.textContent = "Submitting…";
+      errBox.style.display = "none";
+
+      const { error } = await new SupabaseQuery("submissions", sb.headers).insert({
+        name:       document.getElementById("name").value.trim(),
+        email:      document.getElementById("email").value.trim(),
+        title:      document.getElementById("title").value.trim(),
+        category:   document.getElementById("category").value,
+        university: document.getElementById("university").value.trim(),
+        bio:        document.getElementById("bio").value.trim(),
+        content:    document.getElementById("content").value.trim(),
+        notes:      document.getElementById("notes").value.trim(),
+        status:     "pending"
+      });
+
+      if (error) {
+        errBox.textContent = "Something went wrong. Please try again.";
+        errBox.style.display = "block";
+        btn.disabled = false;
+        btn.innerHTML = "Submit Article <span>→</span>";
+        return;
+      }
+
+      document.getElementById("submitForm").style.display = "none";
+      const success = document.getElementById("formSuccess");
+      success.classList.add("visible");
+      success.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  </script>
+</body>
+</html>
