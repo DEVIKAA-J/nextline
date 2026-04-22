@@ -14,8 +14,8 @@
 
 :root {
   /* Fuse Dark Renaissance Palette */
-  --accent:        #a0442a;       /* deep terracotta-red (the brand's warm red) */
-  --accent-light:  #2a1510;       /* very dark tint of accent for backgrounds */
+ --accent:        #7a1f2b;   /* dark academia burgundy red */
+--accent-light:  #1f0c10;   /* deep wine-tinted shadow tone */
   --black:         #0e0c0b;       /* deep charcoal (site background) */
   --dark:          #1c1916;       /* slightly lighter charcoal (cards, surfaces) */
   --mid:           #9a8f86;       /* warm muted grey (body text on dark) */
@@ -310,7 +310,7 @@ ul { list-style: none; }
 }
 
 .hero__cta:hover {
-  background: #8b3620;
+   background: #5e141c;
   transform: translateY(-1px);
 }
 
@@ -1174,7 +1174,7 @@ ul { list-style: none; }
 }
 
 .btn-submit:hover {
-  background: #8b3620;
+  background: #5e141c;
   transform: translateY(-1px);
 }
 
