@@ -16,13 +16,13 @@
   /* Fuse Dark Renaissance Palette */
  --accent:        #7a1f2b;   /* dark academia burgundy red */
 --accent-light:  #1f0c10;   /* deep wine-tinted shadow tone */
-  --black:         #0e0c0b;       /* deep charcoal (site background) */
+  --black:         #12100f;   /* softened black */
   --dark:          #1c1916;       /* slightly lighter charcoal (cards, surfaces) */
   --mid:           #9a8f86;       /* warm muted grey (body text on dark) */
   --light:         #635a54;       /* darker warm grey (secondary text) */
   --border:        #2e2824;       /* warm dark border */
-  --bg:            #0e0c0b;       /* main background — near-black warm */
-  --bg-off:        #1a1714;       /* card / section background */
+  --bg:            #12100f;   /* main background slightly lifted */
+--bg-off:        #1c1816;   /* card background softer */
   --cream:         #e2d8cd;       /* primary readable text */
   --gold:          #c4a882;       /* antique gold accent for decorative use */
   --font-display:  'Playfair Display', Georgia, serif;
@@ -723,7 +723,7 @@ ul { list-style: none; }
 
 /* ── Footer ──────────────────────────────── */
 .footer {
-  background: #0a0807;
+    background: #141110;
   color: var(--mid);
   padding: 56px 0 32px;
   border-top: 1px solid var(--border);
